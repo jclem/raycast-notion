@@ -1,21 +1,45 @@
 {
   "$schema": "https://www.raycast.com/schemas/extension.json",
-  "name": "raycast-extension",
-  "title": "Raycast Extension",
-  "description": "A Raycast extension",
+  "name": "raycast-notion-jclem",
+  "title": "Personal Notion",
+  "description": "A Raycast extension for my personal Notion database",
   "icon": "command-icon.png",
   "author": "jclem",
   "license": "MIT",
-  "preferences": [],
+  "preferences": [
+    {
+      "name": "notionToken",
+      "title": "Notion API Token",
+      "description": "The Notion integration API token",
+      "type": "password",
+      "required": true
+    },
+    {
+      "name": "peopleDatabaseID",
+      "title": "People Database ID",
+      "description": "The ID of the Notion database for people",
+      "type": "textfield",
+      "required": true
+    }
+  ],
   "commands": [
     {
-      "name": "helloWorld",
-      "title": "Hello, world",
-      "description": "Says 'Hello, world'",
-      "mode": "view"
+      "name": "addHubber",
+      "title": "Add Hubber",
+      "description": "Adds a new Hubber to the people database",
+      "mode": "view",
+      "icon": "add-person.png"
+    },
+    {
+      "name": "addPerson",
+      "title": "Add Person",
+      "description": "Adds a new person to the people database",
+      "mode": "view",
+      "icon": "add-person.png"
     }
   ],
   "dependencies": {
+    "@notionhq/client": "^0.4.9",
     "@raycast/api": "^1.26.2"
   },
   "devDependencies": {
