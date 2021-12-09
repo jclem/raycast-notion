@@ -1,0 +1,49 @@
+{
+  "$schema": "https://www.raycast.com/schemas/extension.json",
+  "name": "raycast-extension",
+  "title": "Raycast Extension",
+  "description": "A Raycast extension",
+  "icon": "command-icon.png",
+  "author": "jclem",
+  "license": "MIT",
+  "preferences": [],
+  "commands": [
+    {
+      "name": "helloWorld",
+      "title": "Hello, world",
+      "description": "Says 'Hello, world'",
+      "mode": "view"
+    }
+  ],
+  "dependencies": {
+    "@raycast/api": "^1.26.2"
+  },
+  "devDependencies": {
+    "@types/node": "~16.11.12",
+    "@types/react": "^17.0.37",
+    "@typescript-eslint/eslint-plugin": "^5.6.0",
+    "@typescript-eslint/parser": "^5.6.0",
+    "eslint": "^8.4.1",
+    "eslint-config-prettier": "^8.3.0",
+    "eslint-plugin-import": "^2.25.3",
+    "eslint-plugin-react": "^7.27.1",
+    "eslint-plugin-react-hooks": "^4.3.0",
+    "husky": "^7.0.4",
+    "npm-run-all": "^4.1.5",
+    "prettier": "^2.5.1",
+    "react-devtools": "^4.21.0",
+    "typescript": "^4.5.2"
+  },
+  "scripts": {
+    "prepare": "husky install",
+    "build": "ray build -e dist",
+    "dev": "ray develop",
+    "check": "run-p --continue-on-error --aggregate-output check:*",
+    "check:build": "tsc --noEmit",
+    "check:format": "prettier . --check --loglevel=warn",
+    "check:lint": "eslint .",
+    "fix": "run-s --continue-on-error fix:*",
+    "fix:format": "prettier . --write --loglevel=warn",
+    "fix:lint": "eslint . --fix"
+  }
+}
