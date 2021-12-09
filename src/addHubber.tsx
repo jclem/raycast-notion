@@ -3,7 +3,6 @@ import {
   Form,
   FormTextField,
   popToRoot,
-  preferences,
   showToast,
   SubmitFormAction,
   ToastStyle
