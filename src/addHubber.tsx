@@ -15,7 +15,7 @@ export default () => {
     <Form actions={<Actions />}>
       <FormTextField id="name" title="Name" />
       <FormTextField id="handle" title="Handle" />
-      <ContextPicker omit={['GitHub']} />
+      <ContextPicker omit={['GitHub', 'work']} />
     </Form>
   )
 }
@@ -33,7 +33,12 @@ const Actions = () => {
     const avatarURL = `https://github.com/${handle}.png`
 
     try {
-      await createPerson(name, handle, ['GitHub', ...context], avatarURL)
+      await createPerson(
+        name,
+        handle,
+        ['GitHub', 'work', ...context],
+        avatarURL
+      )
       await showToast(ToastStyle.Success, `Added hubber ${handle}`)
       await popToRoot()
     } catch (err) {
