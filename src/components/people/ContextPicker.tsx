@@ -1,32 +1,16 @@
-import {FormTagPicker, FormTagPickerItem, Icon} from '@raycast/api'
+import {Icon} from '@raycast/api'
 import {peopleDatabaseId} from '../../lib/notion'
-import useProperty from '../../lib/useProperty'
+import MultiSelectPicker, {MultiSelectPickerProps} from '../MultiSelectPicker'
 
-interface Props {
-  omit?: string[]
-}
+type Props = Pick<MultiSelectPickerProps, 'omit'>
 
 export default ({omit}: Props) => {
-  const contexts =
-    useProperty(
-      peopleDatabaseId,
-      'Context',
-      'multi_select'
-    )?.multi_select.options.filter(o => !omit?.includes(o.name)) ?? []
-
   return (
-    <FormTagPicker id="context" title="Context">
-      {contexts.map(ctx => (
-        <FormTagPickerItem
-          key={ctx.name}
-          title={ctx.name}
-          value={ctx.name}
-          icon={{
-            source: Icon.Pin,
-            tintColor: ctx.color
-          }}
-        />
-      ))}
-    </FormTagPicker>
+    <MultiSelectPicker
+      databaseID={peopleDatabaseId}
+      name="Context"
+      icon={Icon.Pin}
+      omit={omit}
+    />
   )
 }
