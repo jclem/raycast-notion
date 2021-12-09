@@ -9,7 +9,7 @@ import {
   ToastStyle
 } from '@raycast/api'
 import ContextPicker from './components/people/ContextPicker'
-import {notion} from './lib/notion'
+import {createPerson} from './lib/notion'
 
 export default () => {
   return (
@@ -36,20 +36,7 @@ const Actions = () => {
     const avatarURL = `https://github.com/${handle}.png`
 
     try {
-      await notion.pages.create({
-        parent: {database_id: dbID},
-        properties: {
-          title: {title: [{type: 'text', text: {content: name}}]},
-          'GitHub Handle': {
-            rich_text: [{type: 'text', text: {content: handle}}]
-          },
-          Context: {
-            multi_select: [{name: 'GitHub'}, ...context.map(name => ({name}))]
-          },
-          Photo: {files: [{name: avatarURL, external: {url: avatarURL}}]}
-        }
-      })
-
+      await createPerson(name, handle, ['GitHub', ...context], avatarURL)
       await showToast(ToastStyle.Success, `Added hubber ${handle}`)
       await popToRoot()
     } catch (err) {

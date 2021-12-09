@@ -1,4 +1,3 @@
-import {CreatePageParameters} from '@notionhq/client/build/src/api-endpoints'
 import {
   ActionPanel,
   Form,
@@ -9,7 +8,7 @@ import {
   ToastStyle
 } from '@raycast/api'
 import ContextPicker from './components/people/ContextPicker'
-import {notion, peopleDatabaseId} from './lib/notion'
+import {createPerson} from './lib/notion'
 
 export default () => {
   return (
@@ -35,23 +34,7 @@ const Actions = () => {
     photo: string
   }) => {
     try {
-      const properties: CreatePageParameters['properties'] = {
-        title: {title: [{type: 'text', text: {content: name}}]},
-        'GitHub Handle': {
-          rich_text: [{type: 'text', text: {content: handle}}]
-        },
-        Context: {multi_select: context.map(ctx => ({name: ctx}))}
-      }
-
-      if (photo) {
-        properties.photo = {files: [{name: photo, external: {url: photo}}]}
-      }
-
-      await notion.pages.create({
-        parent: {database_id: peopleDatabaseId},
-        properties
-      })
-
+      await createPerson(name, handle, context, photo)
       await showToast(ToastStyle.Success, `Added person ${name}`)
       await popToRoot()
     } catch (err) {
