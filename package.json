@@ -28,14 +28,14 @@
       "title": "Add Hubber",
       "description": "Adds a new Hubber to the people database",
       "mode": "view",
-      "icon": "add-person.png"
+      "icon": "person-add.png"
     },
     {
       "name": "addPerson",
       "title": "Add Person",
       "description": "Adds a new person to the people database",
       "mode": "view",
-      "icon": "add-person.png"
+      "icon": "person-add.png"
     }
   ],
   "dependencies": {
