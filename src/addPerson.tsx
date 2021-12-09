@@ -2,42 +2,21 @@ import {CreatePageParameters} from '@notionhq/client/build/src/api-endpoints'
 import {
   ActionPanel,
   Form,
-  FormTagPicker,
-  FormTagPickerItem,
   FormTextField,
-  Icon,
   popToRoot,
   showToast,
   SubmitFormAction,
   ToastStyle
 } from '@raycast/api'
+import ContextPicker from './components/people/ContextPicker'
 import {notion, peopleDatabaseId} from './lib/notion'
-import useProperty from './lib/useProperty'
 
 export default () => {
-  const contexts =
-    useProperty(peopleDatabaseId, 'Context', 'multi_select')?.multi_select
-      .options ?? []
-
   return (
     <Form actions={<Actions />}>
       <FormTextField id="name" title="Name" />
       <FormTextField id="handle" title="Handle" />
-
-      <FormTagPicker id="context" title="Context">
-        {contexts.map(ctx => (
-          <FormTagPickerItem
-            key={ctx.name}
-            title={ctx.name}
-            value={ctx.name}
-            icon={{
-              source: Icon.Pin,
-              tintColor: ctx.color
-            }}
-          />
-        ))}
-      </FormTagPicker>
-
+      <ContextPicker />
       <FormTextField id="photo" title="Photo URL" />
     </Form>
   )

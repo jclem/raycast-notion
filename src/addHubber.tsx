@@ -1,8 +1,6 @@
 import {
   ActionPanel,
   Form,
-  FormTagPicker,
-  FormTagPickerItem,
   FormTextField,
   popToRoot,
   preferences,
@@ -10,41 +8,15 @@ import {
   SubmitFormAction,
   ToastStyle
 } from '@raycast/api'
-import {useEffect, useState} from 'react'
-import {notion, peopleDatabaseId} from './lib/notion'
+import ContextPicker from './components/people/ContextPicker'
+import {notion} from './lib/notion'
 
 export default () => {
-  const [additionalContext, setAdditionalContext] = useState<string[]>([])
-
-  useEffect(() => {
-    const fetchContexts = async () => {
-      const resp = await notion.databases.retrieve({
-        database_id: peopleDatabaseId
-      })
-      const contextProp = resp.properties.Context
-
-      if (contextProp?.type === 'multi_select') {
-        setAdditionalContext(
-          contextProp.multi_select.options
-            .filter(o => o.name !== 'GitHub')
-            .map(o => o.name)
-        )
-      }
-    }
-
-    fetchContexts()
-  }, [])
-
   return (
     <Form actions={<Actions />}>
       <FormTextField id="name" title="Name" />
       <FormTextField id="handle" title="Handle" />
-
-      <FormTagPicker id="context" title="Context">
-        {additionalContext.map(ctx => (
-          <FormTagPickerItem key={ctx} title={ctx} value={ctx} />
-        ))}
-      </FormTagPicker>
+      <ContextPicker omit={['GitHub']} />
     </Form>
   )
 }
