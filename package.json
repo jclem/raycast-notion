@@ -36,11 +36,20 @@
       "description": "Adds a new person to the people database",
       "mode": "view",
       "icon": "person-add.png"
+    },
+    {
+      "name": "search",
+      "title": "Search Notion",
+      "description": "Search Notion databases and pages",
+      "mode": "view",
+      "icon": "search.png"
     }
   ],
   "dependencies": {
     "@notionhq/client": "^0.4.9",
-    "@raycast/api": "^1.26.2"
+    "@raycast/api": "^1.26.2",
+    "react-dom": "^17.0.2",
+    "react-query": "^3.34.1"
   },
   "devDependencies": {
     "@types/node": "~16.11.12",

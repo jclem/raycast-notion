@@ -10,7 +10,7 @@ export default function useProperty<T extends PropertyType>(
   name: string,
   type: T
 ): SpecificPropertyType<T> | null {
-  const db = useDatabase(dbID)
+  const {data: db} = useDatabase(dbID)
   const prop = db?.properties[name]
 
   if (prop?.type === type) {
