@@ -22,8 +22,6 @@ export default () => {
 }
 
 const Actions = () => {
-  const dbID = String(preferences.peopleDatabaseID.value)
-
   const onSubmit = async ({
     name,
     handle,
