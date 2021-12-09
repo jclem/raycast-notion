@@ -5,31 +5,19 @@ import {
   FormTagPicker,
   FormTagPickerItem,
   FormTextField,
+  Icon,
   popToRoot,
   showToast,
   SubmitFormAction,
   ToastStyle
 } from '@raycast/api'
-import {useEffect, useState} from 'react'
 import {notion, peopleDatabaseId} from './lib/notion'
+import useProperty from './lib/useProperty'
 
 export default () => {
-  const [contexts, setContexts] = useState<string[]>([])
-
-  useEffect(() => {
-    const fetchContexts = async () => {
-      const resp = await notion.databases.retrieve({
-        database_id: peopleDatabaseId
-      })
-      const contextProp = resp.properties.Context
-
-      if (contextProp?.type === 'multi_select') {
-        setContexts(contextProp.multi_select.options.map(o => o.name))
-      }
-    }
-
-    fetchContexts()
-  }, [])
+  const contexts =
+    useProperty(peopleDatabaseId, 'Context', 'multi_select')?.multi_select
+      .options ?? []
 
   return (
     <Form actions={<Actions />}>
@@ -38,7 +26,15 @@ export default () => {
 
       <FormTagPicker id="context" title="Context">
         {contexts.map(ctx => (
-          <FormTagPickerItem key={ctx} title={ctx} value={ctx} />
+          <FormTagPickerItem
+            key={ctx.name}
+            title={ctx.name}
+            value={ctx.name}
+            icon={{
+              source: Icon.Pin,
+              tintColor: ctx.color
+            }}
+          />
         ))}
       </FormTagPicker>
 
