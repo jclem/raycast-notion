@@ -1,6 +1,5 @@
 import {
   ActionPanel,
-  Detail,
   Form,
   FormTextField,
   popToRoot,
